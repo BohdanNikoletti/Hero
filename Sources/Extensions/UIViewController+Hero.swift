@@ -319,6 +319,7 @@ public extension HeroExtension where Base: UIViewController {
       navigationController.setViewControllers(vcs, animated: true)
     } else if let container = base.view.superview {
       let parentVC = base.presentingViewController
+      next.beginAppearanceTransition(true, animated: true)
       hero.transition(from: base, to: next, in: container) { [weak base] finished in
         guard let base = base else { return }
         guard finished else { return }
@@ -331,6 +332,7 @@ public extension HeroExtension where Base: UIViewController {
         } else {
           UIViewController.sharedApplication?.keyWindow?.rootViewController = next
         }
+        next.endAppearanceTransition()
       }
     }
   }
