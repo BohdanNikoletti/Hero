@@ -35,6 +35,8 @@ class MainViewController: UIViewController {
     let sizeSource = { (i: Int, data: SourceData, size: CGSize) -> CGSize in
       return CGSize(width: size.width, height: 64)
     }
+
+    let containmentExample = false
     
     let examplesProvider = BasicProvider<SourceData, UILabel>(
       dataSource: dataSource,
@@ -42,8 +44,18 @@ class MainViewController: UIViewController {
       sizeSource: sizeSource,
       layout: FlowLayout(lineSpacing: 10))
     { (context) in
-      let vc = context.data.0.init()
-      self.present(vc, animated: true, completion: nil)
+      if containmentExample {
+        let parent = UIViewController()
+        let child = context.data.0.init()
+        parent.addChild(child)
+        child.view.frame = parent.view.bounds
+        parent.view.addSubview(child.view)
+        child.didMove(toParent: parent)
+        self.present(parent, animated: true, completion: nil)
+      } else {
+        let vc = context.data.0.init()
+        self.present(vc, animated: true, completion: nil)
+      }
     }
     // TODO: Migrate the example to CollectionKit 2.2.0
     

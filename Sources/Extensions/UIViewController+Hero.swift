@@ -318,20 +318,38 @@ public extension HeroExtension where Base: UIViewController {
       }
       navigationController.setViewControllers(vcs, animated: true)
     } else if let container = base.view.superview {
-      let parentVC = base.presentingViewController
+      var parentVC = base.parent
+      let containmentMode = parentVC?.children.first == base
+      if !containmentMode {
+        parentVC = base.presentingViewController
+      }
+
+      let fromViewController: UIViewController = base
+
+      if containmentMode {
+        assert(base.parent?.children.count == 1)
+        parentVC?.addChild(next)
+        fromViewController.willMove(toParent: nil)
+      }
+
       next.beginAppearanceTransition(true, animated: true)
       hero.transition(from: base, to: next, in: container) { [weak base] finished in
         guard let base = base else { return }
         guard finished else { return }
 
         next.view.window?.addSubview(next.view)
-        if let parentVC = parentVC {
+        if containmentMode {
+          fromViewController.view.removeFromSuperview()
+          fromViewController.removeFromParent()
+          next.didMove(toParent: parentVC!)
+        } else if let parentVC = parentVC {
           base.dismiss(animated: false) {
             parentVC.present(next, animated: false, completion: completion)
           }
         } else {
           UIViewController.sharedApplication?.keyWindow?.rootViewController = next
         }
+
         next.endAppearanceTransition()
       }
     }

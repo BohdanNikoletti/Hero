@@ -43,8 +43,13 @@ class MatchExampleViewController1: ExampleBaseViewController {
 
   @objc override func onTap() {
     let vc2 = MatchExampleViewController2()
-    vc2.hero.isEnabled = true
-    present(vc2, animated: true, completion: nil)
+    let containmentMode = parent != nil
+    if containmentMode {
+      hero.replaceViewController(with: vc2)
+    } else {
+      vc2.hero.isEnabled = true
+      present(vc2, animated: true, completion: nil)
+    }
   }
 }
 
