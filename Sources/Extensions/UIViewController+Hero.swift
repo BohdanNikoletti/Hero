@@ -342,15 +342,19 @@ public extension HeroExtension where Base: UIViewController {
           fromViewController.view.removeFromSuperview()
           fromViewController.removeFromParent()
           next.didMove(toParent: parentVC!)
+          next.endAppearanceTransition()
+          completion?()
         } else if let parentVC = parentVC {
           base.dismiss(animated: false) {
-            parentVC.present(next, animated: false, completion: completion)
+            parentVC.present(next, animated: false, completion: {
+              next.endAppearanceTransition()
+              completion?()
+            })
           }
         } else {
           UIViewController.sharedApplication?.keyWindow?.rootViewController = next
+          next.endAppearanceTransition()
         }
-
-        next.endAppearanceTransition()
       }
     }
   }
