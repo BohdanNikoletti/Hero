@@ -108,8 +108,14 @@ extension HeroTransition {
     if let toView = toView, let fromView = fromView {
       context.loadViewAlpha(rootView: toView)
       context.loadViewAlpha(rootView: fromView)
-      container.addSubview(toView)
-      container.addSubview(fromView)
+
+      if toView.superview != container {
+        container.addSubview(toView)
+      }
+
+      if fromView.superview != container {
+        container.addSubview(fromView)
+      }
 
       toView.updateConstraints()
       toView.setNeedsLayout()

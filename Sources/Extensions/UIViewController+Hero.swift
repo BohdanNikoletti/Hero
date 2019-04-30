@@ -337,7 +337,6 @@ public extension HeroExtension where Base: UIViewController {
         guard let base = base else { return }
         guard finished else { return }
 
-        next.view.window?.addSubview(next.view)
         if containmentMode {
           fromViewController.view.removeFromSuperview()
           fromViewController.removeFromParent()
@@ -345,6 +344,7 @@ public extension HeroExtension where Base: UIViewController {
           next.endAppearanceTransition()
           completion?()
         } else if let parentVC = parentVC {
+          next.view.window?.addSubview(next.view)
           base.dismiss(animated: false) {
             parentVC.present(next, animated: false, completion: {
               next.endAppearanceTransition()
@@ -352,6 +352,7 @@ public extension HeroExtension where Base: UIViewController {
             })
           }
         } else {
+          next.view.window?.addSubview(next.view)
           UIViewController.sharedApplication?.keyWindow?.rootViewController = next
           next.endAppearanceTransition()
         }
