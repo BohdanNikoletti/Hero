@@ -179,3 +179,8 @@ extension HeroDebugPlugin: HeroDebugViewDelegate {
 }
 
 #endif
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToCAMediaTimingFunctionName(_ input: String) -> CAMediaTimingFunctionName {
+	return CAMediaTimingFunctionName(rawValue: input)
+}
