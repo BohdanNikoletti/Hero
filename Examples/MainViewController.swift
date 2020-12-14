@@ -50,8 +50,6 @@ class MainViewController: UIViewController {
     let sizeSource = { (i: Int, data: SourceData, size: CGSize) -> CGSize in
       return CGSize(width: size.width, height: 64)
     }
-
-    let containmentExample = false
     
     let examplesProvider = BasicProvider<SourceData, UILabel>(
       dataSource: dataSource,

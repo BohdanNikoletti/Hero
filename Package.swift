@@ -7,7 +7,6 @@ let package = Package(
     name: "Hero",
     platforms: [
         .iOS(.v10),
-        .macOS(.v10_11),
         .tvOS(.v10)
     ],
     products: [
