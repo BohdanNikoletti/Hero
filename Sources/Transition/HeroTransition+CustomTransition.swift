@@ -20,11 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#if canImport(UIKit)
+
 import UIKit
 
 // custom transition helper, used in hero_replaceViewController
 public extension HeroTransition {
-  public func transition(from: UIViewController, to: UIViewController, in view: UIView, completion: ((Bool) -> Void)? = nil) {
+  func transition(from: UIViewController, to: UIViewController, in view: UIView, completion: ((Bool) -> Void)? = nil) {
     guard !isTransitioning else { return }
     self.state = .notified
     isPresenting = true
@@ -38,3 +40,5 @@ public extension HeroTransition {
     start()
   }
 }
+
+#endif

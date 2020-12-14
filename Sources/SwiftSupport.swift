@@ -6,10 +6,11 @@
 //  Copyright © 2018 Luke Zhao. All rights reserved.
 //
 
-#if !(swift(>=4.2))
+#if canImport(UIKit) && !(swift(>=4.2))
 import Foundation
 import CoreMedia
 import CoreGraphics
+
 import UIKit
 
 extension CMTime {
@@ -46,17 +47,5 @@ extension RunLoop {
     static let common = RunLoop.Mode.common
   }
 }
+
 #endif
-
-
-
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromCAMediaTimingFillMode(_ input: CAMediaTimingFillMode) -> String {
-	return input.rawValue
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromCAMediaTimingFunctionName(_ input: CAMediaTimingFunctionName) -> String {
-	return input.rawValue
-}

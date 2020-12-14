@@ -22,6 +22,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#if canImport(UIKit)
+
 import UIKit
 
 public enum CascadeDirection {
@@ -29,8 +31,8 @@ public enum CascadeDirection {
   case bottomToTop
   case leftToRight
   case rightToLeft
-  case radial(center:CGPoint)
-  case inverseRadial(center:CGPoint)
+  case radial(center: CGPoint)
+  case inverseRadial(center: CGPoint)
   var comparator: (UIView, UIView) -> Bool {
     switch self {
     case .topToBottom:
@@ -70,11 +72,11 @@ public enum CascadeDirection {
       return nil
     }
   }
-  
+
   public static var leadingToTrailing: CascadeDirection {
     return UIViewController.sharedApplication?.userInterfaceLayoutDirection == .leftToRight ? .leftToRight : .rightToLeft
   }
-  
+
   public static var trailingToLeading: CascadeDirection {
     return UIViewController.sharedApplication?.userInterfaceLayoutDirection == .leftToRight ? .rightToLeft : .leftToRight
   }
@@ -136,3 +138,5 @@ class CascadePreprocessor: BasePreprocessor {
     }
   }
 }
+
+#endif

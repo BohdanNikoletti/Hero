@@ -20,9 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#if canImport(UIKit) && os(iOS)
+
 import UIKit
 
-#if os(iOS)
 public class HeroDebugPlugin: HeroPlugin {
   public static var showOnTop: Bool = false
 
@@ -176,6 +177,7 @@ extension HeroDebugPlugin: HeroDebugViewDelegate {
     hero.container.layer.sublayerTransform = t
   }
 }
+
 #endif
 
 // Helper function inserted by Swift 4.2 migrator.

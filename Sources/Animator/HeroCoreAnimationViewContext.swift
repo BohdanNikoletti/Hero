@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#if canImport(UIKit)
+
 import UIKit
 
 extension CALayer {
@@ -36,14 +38,13 @@ extension CALayer {
   }()
 
   @objc dynamic func hero_add(anim: CAAnimation, forKey: String?) {
-    if CALayer.heroAddedAnimations != nil {
-      let copiedAnim = anim.copy() as! CAAnimation
-      copiedAnim.delegate = nil // having delegate resulted some weird animation behavior
-      CALayer.heroAddedAnimations!.append((self, forKey!, copiedAnim))
-      hero_add(anim: anim, forKey: forKey)
-    } else {
-      hero_add(anim: anim, forKey: forKey)
+    if let animationKey = forKey,
+        CALayer.heroAddedAnimations != nil,
+        let copiedAnim = anim.copy() as? CAAnimation {
+        copiedAnim.delegate = nil // having delegate resulted some weird animation behavior
+        CALayer.heroAddedAnimations?.append((self, animationKey, copiedAnim))
     }
+    hero_add(anim: anim, forKey: forKey)
   }
 }
 
@@ -458,7 +459,4 @@ internal class HeroCoreAnimationViewContext: HeroAnimatorViewContext {
   }
 }
 
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToCAMediaTimingFillMode(_ input: String) -> CAMediaTimingFillMode {
-	return CAMediaTimingFillMode(rawValue: input)
-}
+#endif

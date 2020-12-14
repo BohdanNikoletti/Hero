@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#if canImport(UIKit)
+
 import UIKit
 
 public enum HeroDefaultAnimationType {
@@ -36,16 +38,16 @@ public enum HeroDefaultAnimationType {
       default: return nil
       }
     }
-    
+
     public static var leading: Direction {
       return UIViewController.sharedApplication?.userInterfaceLayoutDirection == .leftToRight ? .left : .right
     }
-    
+
     public static var trailing: Direction {
       return UIViewController.sharedApplication?.userInterfaceLayoutDirection == .leftToRight ? .right : .left
     }
   }
-  
+
   public enum Strategy {
     case forceLeftToRight, forceRightToLeft, userInterface
     func defaultDirection(presenting: Bool) -> Direction {
@@ -59,7 +61,7 @@ public enum HeroDefaultAnimationType {
       }
     }
   }
-  
+
   case auto
   case push(direction: Direction)
   case pull(direction: Direction)
@@ -378,3 +380,5 @@ class DefaultAnimationPreprocessor: BasePreprocessor {
     }
   }
 }
+
+#endif

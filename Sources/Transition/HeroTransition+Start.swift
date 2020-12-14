@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#if canImport(UIKit)
+
 import UIKit
 
 extension HeroTransition {
@@ -34,7 +36,9 @@ extension HeroTransition {
         toView.frame = fromView.frame
       }
       toView.setNeedsLayout()
-      toView.layoutIfNeeded()
+      if nil != toView.window {
+        toView.layoutIfNeeded()
+      }
     }
 
     if let fvc = fromViewController, let tvc = toViewController {
@@ -169,3 +173,5 @@ extension HeroTransition {
     #endif
   }
 }
+
+#endif
