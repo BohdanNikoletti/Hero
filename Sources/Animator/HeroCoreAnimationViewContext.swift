@@ -152,7 +152,7 @@ internal class HeroCoreAnimationViewContext: HeroAnimatorViewContext {
       anim = banim
     }
 
-    anim.fillMode = convertToCAMediaTimingFillMode(CAMediaTimingFillMode.both.rawValue)
+    anim.fillMode = .both
     anim.isRemovedOnCompletion = false
     anim.beginTime = beginTime
     return anim
